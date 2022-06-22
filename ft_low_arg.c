@@ -6,7 +6,7 @@
 /*   By: fjallet <fjallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 18:31:54 by fjallet           #+#    #+#             */
-/*   Updated: 2022/06/22 17:35:35 by fjallet          ###   ########.fr       */
+/*   Updated: 2022/06/22 19:59:04 by fjallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	ft_is_ordoned(t_list *a)
 	}
 	while (i-- > 1)
 	{
-		if (temp->content > temp->next->content && i - 1 != pos)
+		if (temp->content > temp->next->content && i != pos)
 			return (0);
 		temp = temp->next;
 	}
