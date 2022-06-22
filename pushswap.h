@@ -6,7 +6,7 @@
 /*   By: fjallet <fjallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 14:29:12 by fjallet           #+#    #+#             */
-/*   Updated: 2022/06/21 18:46:01 by fjallet          ###   ########.fr       */
+/*   Updated: 2022/06/22 17:34:30 by fjallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,14 @@ struct s_list {
 
 typedef struct s_data {
 	t_list	*a;
+	t_list	*b;
 	t_list	*trace;
 	t_list	*lis;
 	int		len;
 	int		len_lis;
 	int		pos_max;
+	int		argv;
+	char	**argc;
 }				t_data;
 
 typedef struct s_move {
@@ -52,13 +55,13 @@ typedef struct s_move {
 }				t_move;
 
 //push_swap.c
-void	stack_free(t_list **lst);
 void	ft_move(t_list **a, t_list **b, t_move bestmove);
 void	final_rotate(t_list **a);
 void	ft_pushswap(t_list **a, t_list **b);
+void	sub_main(t_data data);
 
 //ft_parsing.c
-t_list	*ft_parsing(char **arg, t_list	**a);
+int		ft_parsing(char **arg, t_data *data);
 int		ft_isstandard(char **arg);
 int		ft_isint(char *arg);
 int		ft_atoi(const char *str);
@@ -108,10 +111,9 @@ void	ft_swaprrp(t_move posia, t_move posib, t_move *tempmove);
 
 //ft_divers.c
 void	ft_initmove(t_move *a);
-void	sub_final_rotate(t_list **a, int pos);
+int		find_pos_low(t_list *a);
 int		sub_checksame(int i, int j, t_list *a);
-int		ft_is_ordoned_absolute(t_list *a);
-int		ft_is_ordoned(t_list *a);
+void	data_init(t_data *data);
 
 //ft_posi.c
 void	ft_posiup(t_list *a, int *count);
@@ -124,7 +126,15 @@ int		getmax(int a, int b);
 char	**ft_split(char const *s, char c);
 
 //ft_lowarg.c
-int 	ft_argswap(t_list *a);
-void 	ft_arg3(t_list *a);
+int		ft_argswap(t_list **a);
+void	ft_arg3(t_list **a);
+int		ft_is_ordoned_absolute(t_list *a);
+int		ft_is_ordoned(t_list *a);
+void	low_rotate(t_list *a);
+
+//ft_free.c
+void	stack_free(t_list **lst);
+void	tab_free(t_data *data);
+void	free_all(t_data data);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: fjallet <fjallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 13:26:23 by fjallet           #+#    #+#             */
-/*   Updated: 2022/06/21 13:26:23 by fjallet          ###   ########.fr       */
+/*   Updated: 2022/06/22 16:32:01 by fjallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,9 @@ void	reverse_rotate(t_list **a, char c)
 	t_list	*temp;
 	t_list	*temp2;
 
-	temp = *a;
 	if (!*a)
 		return ;
+	temp = *a;
 	while (temp->next->next != NULL)
 		temp = temp->next;
 	temp2 = temp->next;

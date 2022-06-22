@@ -6,19 +6,24 @@
 /*   By: fjallet <fjallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 13:21:43 by fjallet           #+#    #+#             */
-/*   Updated: 2022/06/21 18:44:51 by fjallet          ###   ########.fr       */
+/*   Updated: 2022/06/22 18:08:09 by fjallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pushswap.h"
 
-t_list	*ft_parsing(char **arg, t_list	**a)
+int	ft_parsing(char **arg, t_data *data)
 {
 	int		i;
 
-	i = 1;
+	i = 0;
+	if (data->argc != NULL)
+		arg = data->argc;
 	if (ft_isstandard(arg))
+	{
+		ft_printf("Error\n");
 		return (0);
+	}
 	while (arg[i])
 	{
 		if (ft_isint(arg[i]))
@@ -26,35 +31,37 @@ t_list	*ft_parsing(char **arg, t_list	**a)
 			ft_printf("Error\n");
 			return (0);
 		}
-		ft_lstadd_back(a, ft_lstnew(ft_atoi(arg[i])));
+		ft_lstadd_back(&(data->a), ft_lstnew(ft_atoi(arg[i])));
 		i++;
 	}
-	if (ft_checksame(*a))
+	if (ft_checksame(data->a))
 		return (0);
-	if (ft_lstcount(*a) == 1)
-		stack_free(a);
-	return (*a);
+	return (1);
 }
 
 int	ft_isstandard(char **arg)
 {
 	int		i;
 	int		j;
+	int		witness;
 
-	i = 1;
+	i = 0;
 	j = 0;
 	while (arg[i])
 	{
 		j = 0;
+		witness = 0;
 		while (arg[i][j])
 		{
-			if (!(arg[i][j] >= '0' && '9' >= arg[i][j]) && arg[i][j] != '-')
-			{
-				ft_printf("Error\n", arg[i][j], i, j);
+			if (!(arg[i][j] >= '0' && '9' >= arg[i][j]) && !(arg[i][j] \
+			== '-' && j == 0))
 				return (1);
-			}
+			if (arg[i][j] >= '0' && '9' >= arg[i][j])
+				witness = 1;
 			j++;
 		}
+		if (witness == 0)
+			return (1);
 		i++;
 	}
 	return (0);
@@ -82,7 +89,7 @@ int	ft_isint(char *str)
 	{
 		num = num * 10 + (str[i] - 48);
 		i++;
-		if ((sig > 0 && num > 2147483647) || (sig < 0 && num < -2147483648))
+		if ((sig > 0 && num > 2147483647) || (sig < 0 && num > 2147483648))
 			return (1);
 	}
 	return (0);
@@ -128,7 +135,6 @@ int	ft_checksame(t_list *a)
 			if (i->content == j->content)
 			{
 				ft_printf("Error\n");
-				stack_free(&a);
 				return (1);
 			}
 			j = j->next;

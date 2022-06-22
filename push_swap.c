@@ -6,27 +6,11 @@
 /*   By: fjallet <fjallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 13:22:10 by fjallet           #+#    #+#             */
-/*   Updated: 2022/06/21 18:55:43 by fjallet          ###   ########.fr       */
+/*   Updated: 2022/06/22 17:34:04 by fjallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pushswap.h"
-
-void	stack_free(t_list **lst)
-{
-	t_list	*temp;
-
-	if (!(*lst))
-		return ;
-	while ((*lst)->next != NULL)
-	{
-		temp = *lst;
-		*lst = (*lst)->next;
-		free(temp);
-	}
-	free(*lst);
-	*lst = NULL;
-}
 
 void	ft_move(t_list **a, t_list **b, t_move bestmove)
 {
@@ -59,55 +43,59 @@ void	ft_pushswap(t_list **a, t_list **b)
 
 void	final_rotate(t_list **a)
 {
-	int		num;
-	int		pos;
-	int		i;
-	t_list	*temp;
+	int	pos;
 
-	temp = *a;
-	num = 2147483647;
-	pos = 0;
-	i = 0;
-	while (i < ft_lstcount(*a))
+	pos = find_pos_low(*a);
+	if (pos <= ft_lstcount(*a) / 2)
 	{
-		if (num > temp->content)
+		while (pos > 0)
 		{
-			num = temp->content;
-			pos = i;
+			rotate(a, 'a');
+			pos--;
 		}
-		temp = temp->next;
-		i++;
 	}
-	sub_final_rotate(a, pos);
+	else
+	{
+		while (pos < ft_lstcount(*a))
+		{
+			reverse_rotate(a, 'a');
+			pos++;
+		}
+	}
+}
+
+void	sub_main(t_data data)
+{
+	if (ft_is_ordoned(data.a) == 0)
+	{
+		get_lis(&data);
+		ft_swaplis(&(data.a), &(data.b), data);
+		ft_pushswap(&(data.a), &(data.b));
+	}
+	final_rotate(&(data.a));
+	free_all(data);
 }
 
 int	main(int argv, char **argc)
 {
 	t_data	data;
-	t_list	*a;
-	t_list	*b;
 
-	a = NULL;
-	b = NULL;
+	data_init(&data);
+	data.argv = argv;
 	if (argv == 2)
-		argc = ft_split(argc[1], ' ');
-	if (argv <= 2)
+		data.argc = ft_split(argc[1], ' ');
+	if (argv < 2)
 		return (0);
-	a = ft_parsing(argc, &a);
-	if (!a)
-		return (1);
-	data.a = a;
-	if (ft_argswap(a) == 0)
+	if (ft_parsing(&argc[1], &data) == 0 || ft_lstcount(data.a) < 2)
 	{
-		stack_free(&a);
+		free_all(data);
 		return (0);
 	}
-	get_lis(&data);
-	ft_swaplis(&a, &b, data);
-	ft_pushswap(&a, &b);
-	final_rotate(&a);
-	stack_free(&a);
-	stack_free((&data.lis));
-	stack_free(&b);
+	if (ft_argswap(&(data.a)) == 0)
+	{
+		free_all(data);
+		return (0);
+	}
+	sub_main(data);
 	return (0);
 }

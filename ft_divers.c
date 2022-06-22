@@ -6,7 +6,7 @@
 /*   By: fjallet <fjallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 17:03:17 by fjallet           #+#    #+#             */
-/*   Updated: 2022/06/21 18:30:06 by fjallet          ###   ########.fr       */
+/*   Updated: 2022/06/22 17:27:04 by fjallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,40 +23,18 @@ void	ft_initmove(t_move *a)
 	a->num = 1000;
 }
 
-void	sub_final_rotate(t_list **a, int pos)
-{
-	while (pos > 0)
-	{
-		if (pos <= ft_lstcount(*a))
-			rotate(a, 'a');
-		else
-			reverse_rotate(a, 'a');
-		pos--;
-	}
-}
-
-int	sub_checksame(int i, int j, t_list *a)
-{
-	if (i == j)
-	{
-		ft_printf("Error\n");
-		stack_free(&a);
-		return (1);
-	}
-	return (0);
-}
-
-int	ft_is_ordoned(t_list *a)
-{
-	t_list	*temp;
+int	find_pos_low(t_list *a)
+{	
 	int		num;
-	int		i;
 	int		pos;
+	int		i;
+	t_list	*temp;
 
 	temp = a;
-	i = 0;
 	num = 2147483647;
-	while (i++ < ft_lstcount(a))
+	pos = 0;
+	i = 0;
+	while (i < ft_lstcount(a))
 	{
 		if (num > temp->content)
 		{
@@ -64,23 +42,28 @@ int	ft_is_ordoned(t_list *a)
 			pos = i;
 		}
 		temp = temp->next;
+		i++;
 	}
-	temp = a;
-	while(i-- > 0)
-	{
-		if (temp->content > temp->next->content && i != pos)
-			return (0);
-	}
-	return (1);
+	return (pos);
 }
 
-int	ft_is_ordoned_absolute(t_list *a)
+int	sub_checksame(int i, int j, t_list *a)
 {
-	while (a->next != 0)
+	if (i == j)
 	{
-		if (a->content > a->next->content)
-			return (1);
-		a = a->next;
+		ft_printf("Error\n");
+		return (1);
 	}
+	(void)a;
 	return (0);
+}
+
+void	data_init(t_data *data)
+{
+	data->a = NULL;
+	data->b = NULL;
+	data->trace = NULL;
+	data->lis = NULL;
+	data->argc = NULL;
+	(void)data;
 }
