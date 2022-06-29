@@ -6,13 +6,13 @@
 /*   By: fjallet <fjallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 18:31:54 by fjallet           #+#    #+#             */
-/*   Updated: 2022/06/22 19:59:04 by fjallet          ###   ########.fr       */
+/*   Updated: 2022/06/24 14:50:22 by fjallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pushswap.h"
 
-int	ft_argswap(t_list **a)
+int	ft_argswap(t_list **a, t_list **b)
 {
 	if (ft_is_ordoned_absolute(*a) == 0)
 		return (0);
@@ -24,6 +24,11 @@ int	ft_argswap(t_list **a)
 	if (ft_lstcount(*a) == 3)
 	{
 		ft_arg3(a);
+		return (0);
+	}
+	if (ft_lstcount(*a) == 5)
+	{
+		ft_5arg(a, b);
 		return (0);
 	}
 	return (1);

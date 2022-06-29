@@ -6,7 +6,7 @@
 /*   By: fjallet <fjallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 17:03:17 by fjallet           #+#    #+#             */
-/*   Updated: 2022/06/22 17:27:04 by fjallet          ###   ########.fr       */
+/*   Updated: 2022/06/24 15:39:54 by fjallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,13 @@ void	data_init(t_data *data)
 	data->lis = NULL;
 	data->argc = NULL;
 	(void)data;
+}
+
+void	ft_5arg(t_list **a, t_list **b)
+{
+	push(a, b, 'b');
+	push(a, b, 'b');
+	ft_arg3(a);
+	ft_pushswap(a, b);
+	final_rotate(a);
 }

@@ -6,7 +6,7 @@
 /*   By: fjallet <fjallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 14:29:12 by fjallet           #+#    #+#             */
-/*   Updated: 2022/06/22 17:34:30 by fjallet          ###   ########.fr       */
+/*   Updated: 2022/06/24 15:22:11 by fjallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ void	ft_initmove(t_move *a);
 int		find_pos_low(t_list *a);
 int		sub_checksame(int i, int j, t_list *a);
 void	data_init(t_data *data);
+void	ft_5arg(t_list **a, t_list **b);
 
 //ft_posi.c
 void	ft_posiup(t_list *a, int *count);
@@ -126,7 +127,7 @@ int		getmax(int a, int b);
 char	**ft_split(char const *s, char c);
 
 //ft_lowarg.c
-int		ft_argswap(t_list **a);
+int		ft_argswap(t_list **a, t_list **b);
 void	ft_arg3(t_list **a);
 int		ft_is_ordoned_absolute(t_list *a);
 int		ft_is_ordoned(t_list *a);
@@ -136,5 +137,6 @@ void	low_rotate(t_list *a);
 void	stack_free(t_list **lst);
 void	tab_free(t_data *data);
 void	free_all(t_data data);
+int		ft_checksplit(char *str);
 
 #endif

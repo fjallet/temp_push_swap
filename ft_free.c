@@ -6,7 +6,7 @@
 /*   By: fjallet <fjallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 12:31:35 by fjallet           #+#    #+#             */
-/*   Updated: 2022/06/22 17:00:00 by fjallet          ###   ########.fr       */
+/*   Updated: 2022/06/24 15:23:58 by fjallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,18 @@ void	free_all(t_data data)
 	stack_free(&(data.a));
 	stack_free(&(data.lis));
 	stack_free(&(data.b));
+}
+
+int	ft_checksplit(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] != ' ')
+			return (1);
+		i++;
+	}
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: fjallet <fjallet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 13:22:10 by fjallet           #+#    #+#             */
-/*   Updated: 2022/06/22 17:34:04 by fjallet          ###   ########.fr       */
+/*   Updated: 2022/06/24 15:32:06 by fjallet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,16 +82,21 @@ int	main(int argv, char **argc)
 
 	data_init(&data);
 	data.argv = argv;
-	if (argv == 2)
+	if (argv == 2 && ft_checksplit(argc[1]) == 1)
 		data.argc = ft_split(argc[1], ' ');
-	if (argv < 2)
+	else if (argv == 2 && ft_checksplit(argc[1]) == 0)
 		return (0);
+	if (argv < 2 || argc[1][0] == '\0')
+	{
+		free_all(data);
+		return (0);
+	}
 	if (ft_parsing(&argc[1], &data) == 0 || ft_lstcount(data.a) < 2)
 	{
 		free_all(data);
 		return (0);
 	}
-	if (ft_argswap(&(data.a)) == 0)
+	if (ft_argswap(&(data.a), &(data.b)) == 0)
 	{
 		free_all(data);
 		return (0);
